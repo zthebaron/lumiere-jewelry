@@ -7,13 +7,11 @@ import { revalidatePath } from "next/cache";
 export async function addToCart(productId: string, variantId?: string) {
   const sessionId = await ensureSessionId();
 
-  const existing = await db.cartItem.findUnique({
+  const existing = await db.cartItem.findFirst({
     where: {
-      sessionId_productId_variantId: {
-        sessionId,
-        productId,
-        variantId: variantId ?? null,
-      },
+      sessionId,
+      productId,
+      variantId: variantId ?? null,
     },
   });
 

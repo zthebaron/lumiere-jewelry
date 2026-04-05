@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  price       Int       // cents
+  compareAt   Int?      // original price for sale display
+  images      String[]
+  category    String?
+  collection  String?
+  inStock     Boolean   @default(true)
+  featured    Boolean   @default(false)
+  variants    Variant[]
+  cartItems   CartItem[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Variant {
+  id        String     @id @default(cuid())
+  name      String
+  value     String
+  price     Int?
+  inStock   Boolean    @default(true)
+  productId String
+  product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  sessionId String
+  quantity  Int      @default(1)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId String?
+  variant   Variant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sessionId, productId, variantId])
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  email     String
+  name      String
+  address   String?
+  city      String?
+  country   String?
+  zip       String?
+  status    String   @default("pending")
+  total     Int
+  items     Json
+  createdAt DateTime @default(now())
+}

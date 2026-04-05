@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.98 0.005 75);
+  --foreground: oklch(0.15 0.01 75);
+  --card: oklch(0.97 0.005 75);
+  --card-foreground: oklch(0.15 0.01 75);
+  --muted: oklch(0.93 0.005 75);
+  --muted-foreground: oklch(0.45 0.01 75);
+  --accent: oklch(0.75 0.12 85);
+  --accent-foreground: oklch(0.15 0.01 75);
+  --border: oklch(0.88 0.01 75);
+  --ring: oklch(0.75 0.12 85);
+  --destructive: oklch(0.55 0.2 25);
+}
+
+.dark {
+  --background: oklch(0.08 0.01 75);
+  --foreground: oklch(0.93 0.005 75);
+  --card: oklch(0.12 0.01 75);
+  --card-foreground: oklch(0.93 0.005 75);
+  --muted: oklch(0.18 0.01 75);
+  --muted-foreground: oklch(0.6 0.01 75);
+  --accent: oklch(0.75 0.12 85);
+  --accent-foreground: oklch(0.08 0.01 75);
+  --border: oklch(0.22 0.01 75);
+  --ring: oklch(0.75 0.12 85);
+  --destructive: oklch(0.55 0.2 25);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+  --radius: 0rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Shimmer loading animation for images */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.image-shimmer {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--border) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }

@@ -62,8 +62,19 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground">
+        <div className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground space-y-2">
           <p>&copy; {new Date().getFullYear()} Lumiere. All rights reserved.</p>
+          <p>
+            Powered by{" "}
+            <a
+              href="https://digitalboutique.us"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:text-foreground transition-colors"
+            >
+              DigitalBoutique.us
+            </a>
+          </p>
         </div>
       </div>
     </footer>

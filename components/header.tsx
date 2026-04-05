@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { href: "/products", label: "Products" },
@@ -46,7 +47,8 @@ export function Header() {
         </Link>
 
         {/* Right actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link
             href="/search"
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"

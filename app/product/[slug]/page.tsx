@@ -4,6 +4,8 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { AddToCartButton } from "./add-to-cart-button";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {
